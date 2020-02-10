@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_app_list"
+    app:startDestination="@id/appListFragment">
+
+    <fragment
+        android:id="@+id/appListFragment"
+        android:name="com.meditab.jetbuild.applist.ui.AppListFragment"
+        android:label="app_list_fragment"
+        tools:layout="@layout/app_list_fragment">
+        <action
+            android:id="@+id/action_appListFragment_to_appDetailsFragment"
+            app:destination="@id/appDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/appDetailsFragment"
+        android:name="com.meditab.jetbuild.appdetails.ui.AppDetailsFragment"
+        android:label="app_details_fragment"
+        tools:layout="@layout/app_details_fragment" />
+</navigation>
