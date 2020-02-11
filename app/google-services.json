@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1041392829564",
+    "firebase_url": "https://jet-build.firebaseio.com",
+    "project_id": "jet-build",
+    "storage_bucket": "jet-build.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041392829564:android:41bf51e8831239161135f9",
+        "android_client_info": {
+          "package_name": "com.meditab.jetbuild"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041392829564-cr0bm78047lrtvu03lu74enepmjo2qrf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meditab.jetbuild",
+            "certificate_hash": "8425e1366d8087c12ca6a9537895ed8d7dd37393"
+          }
+        },
+        {
+          "client_id": "1041392829564-o31voos86kjv13e1uq0erjrv8324qihv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6VgcscV-3IWFYX8tRW_OHj1RHNtBBgr8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041392829564-o31voos86kjv13e1uq0erjrv8324qihv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
