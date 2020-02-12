@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.meditab.jetbuild.R
 import com.meditab.jetbuild.applist.adapter.AppListAdapter
-import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.applist.viewmodel.AppListViewModel
 import kotlinx.android.synthetic.main.app_list_fragment.*
 
@@ -42,22 +42,16 @@ class AppListFragment : Fragment() {
         }
 
 //        rvApps.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-        val list = ArrayList<AppData>()
-        list.add(AppData("1", "IMSGo"))
-        list.add(AppData("2", "IMSPatientApp"))
-        list.add(AppData("3", "IMSOnArrival"))
-
         val adapter = AppListAdapter()
 
         rvApps.adapter = adapter
-        adapter.submitList(list)
-    }
+//        adapter.submitList(list)
 
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AppListViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        viewModel.appListLiveData.observe(this, Observer { list ->
+            adapter.submitList(list)
+        })
     }
 
     override fun onAttach(context: Context) {

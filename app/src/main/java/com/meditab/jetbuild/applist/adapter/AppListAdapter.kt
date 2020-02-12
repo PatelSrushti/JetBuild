@@ -11,13 +11,13 @@ import com.meditab.jetbuild.databinding.AppListItemBinding
 class AppListAdapter :
     ListAdapter<AppData, AppListAdapter.AppListVH>(diffCallback) {
 
-    class AppListVH(binding: AppListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class AppListVH(val binding: AppListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val tvAppName = binding.tvAppName
         val ivAppLogo = binding.ivAppLogo
         val tvDescription = binding.tvDescription
 
         fun bind(appData: AppData) {
-            tvAppName.text = appData.name
+            binding.app = appData
         }
 
         companion object {
@@ -36,7 +36,7 @@ class AppListAdapter :
 
 
     override fun onBindViewHolder(holder: AppListVH, position: Int) {
-//        holder.bind(getItem(position))
+        holder.bind(getItem(position))
     }
 
     companion object {
