@@ -47,9 +47,10 @@ class AppListFragment : Fragment() {
         list.add(AppData("2", "IMSPatientApp"))
         list.add(AppData("3", "IMSOnArrival"))
 
-        val adapter = AppListAdapter(mContext, list)
+        val adapter = AppListAdapter()
 
         rvApps.adapter = adapter
+        adapter.submitList(list)
     }
 
 
