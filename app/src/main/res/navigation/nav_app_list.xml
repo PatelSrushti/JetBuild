@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/appDetailsFragment"
-        android:name="com.meditab.jetbuild.appdetails.ui.AppDetailsFragment"
+        android:name="com.meditab.jetbuild.buildlist.ui.BuildListFragment"
         android:label="app_details_fragment"
         tools:layout="@layout/app_details_fragment" />
 </navigation>

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1041392829564-er8c7triau4ompjj87q3lqqotqadmc7u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meditab.jetbuild",
+            "certificate_hash": "e83a545b97f415cd3f3d2297fd1e7ee9ee56b0ba"
+          }
+        },
+        {
           "client_id": "1041392829564-cr0bm78047lrtvu03lu74enepmjo2qrf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

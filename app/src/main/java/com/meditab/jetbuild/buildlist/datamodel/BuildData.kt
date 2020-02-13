@@ -1,4 +1,4 @@
-package com.meditab.jetbuild.appdetails.datamodel
+package com.meditab.jetbuild.buildlist.datamodel
 
 data class BuildData(
     var id: String?,

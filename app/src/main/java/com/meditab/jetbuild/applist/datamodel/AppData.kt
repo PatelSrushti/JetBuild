@@ -1,6 +1,6 @@
 package com.meditab.jetbuild.applist.datamodel
 
-import com.meditab.jetbuild.appdetails.datamodel.BuildData
+import com.meditab.jetbuild.buildlist.datamodel.BuildData
 
 data class AppData(
     var id: String,

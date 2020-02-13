@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.meditab.jetbuild.R
 import com.meditab.jetbuild.applist.adapter.AppListAdapter
 import com.meditab.jetbuild.applist.viewmodel.AppListViewModel
@@ -43,9 +43,10 @@ class AppListFragment : Fragment() {
         val adapter = AppListAdapter()
         rvApps.adapter = adapter
 
-        viewModel = ViewModelProviders.of(this).get(AppListViewModel::class.java)
+//        viewModel = ViewModelProviders.of(this).get(AppListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AppListViewModel::class.java)
 
-        viewModel.appListLiveData.observe(this, Observer { list ->
+        viewModel.appListLiveData.observe(viewLifecycleOwner, Observer { list ->
             adapter.submitList(list)
         })
     }
