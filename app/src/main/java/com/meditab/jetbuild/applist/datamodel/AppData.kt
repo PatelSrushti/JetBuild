@@ -6,6 +6,6 @@ data class AppData(
     var id: String,
     var name: String,
     var description: String? = null,
-    var appIcon: String? = null,
+    var appIcon: Int? = null,
     var builds: List<BuildData>? = null
 )
