@@ -1,9 +1,9 @@
 package com.meditab.jetbuild
 
 import android.os.Bundle
-import com.meditab.jetbuild.base.BaseActivity
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

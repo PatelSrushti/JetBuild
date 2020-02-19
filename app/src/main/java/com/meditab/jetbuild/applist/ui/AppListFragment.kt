@@ -40,7 +40,7 @@ class AppListFragment : Fragment() {
 //            findNavController().navigate(R.id.action_appListFragment_to_appDetailsFragment, null)
 //        }
 
-        val adapter = AppListAdapter()
+        val adapter = AppListAdapter(mContext)
         rvApps.adapter = adapter
 
 //        viewModel = ViewModelProviders.of(this).get(AppListViewModel::class.java)
