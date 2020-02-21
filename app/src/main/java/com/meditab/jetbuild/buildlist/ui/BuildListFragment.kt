@@ -12,16 +12,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.meditab.jetbuild.R
 import com.meditab.jetbuild.buildlist.adapter.BuildListAdapter
 import com.meditab.jetbuild.buildlist.adapter.BuildListListener
+import com.meditab.jetbuild.buildlist.utils.BuildListViewModelFactory
 import com.meditab.jetbuild.buildlist.viewmodel.BuildListViewModel
 import kotlinx.android.synthetic.main.build_list_fragment.*
 
 class BuildListFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = BuildListFragment()
-    }
-
     private lateinit var viewModel: BuildListViewModel
+    private var buildListFragmentArgs: BuildListFragmentArgs? = null
+    private lateinit var appId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,9 +29,14 @@ class BuildListFragment : Fragment() {
         return inflater.inflate(R.layout.build_list_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(BuildListViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        buildListFragmentArgs = arguments?.let { BuildListFragmentArgs.fromBundle(it) }
+        appId = buildListFragmentArgs?.appId ?: ""
+
+        val viewModelFactory = BuildListViewModelFactory(appId)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(BuildListViewModel::class.java)
 
         val adapter = BuildListAdapter(BuildListListener {
 
@@ -47,10 +51,8 @@ class BuildListFragment : Fragment() {
         rvBuilds.adapter = adapter
 
         viewModel.buildListLiveData.observe(viewLifecycleOwner, Observer {
-            //            adapter.addHeaderAndSubmitList(it)
             adapter.submitList(it)
         })
-
     }
 
 }

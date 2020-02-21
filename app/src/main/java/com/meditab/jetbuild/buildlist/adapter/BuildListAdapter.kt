@@ -7,25 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.meditab.jetbuild.buildlist.datamodel.BuildData
 import com.meditab.jetbuild.databinding.BuildListItemBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
 class BuildListAdapter(private val buildListListener: BuildListListener) :
     ListAdapter<BuildData, BuildListAdapter.BuildListViewHolder>(BuildListDiffCallback()) {
-
-    private val adapterScope = CoroutineScope(Dispatchers.Default)
-
-    fun addHeaderAndSubmitList(buildDataList: List<BuildData>?) {
-        adapterScope.launch {
-            withContext(Dispatchers.Main) {
-                submitList(buildDataList)
-            }
-        }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildListViewHolder {
         return BuildListViewHolder.from(parent)

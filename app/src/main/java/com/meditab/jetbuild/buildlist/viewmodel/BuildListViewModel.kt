@@ -12,17 +12,17 @@ import com.meditab.jetbuild.buildlist.datamodel.BuildData
 import com.meditab.jetbuild.buildlist.repository.BuildListLiveData
 import com.meditab.jetbuild.firebase.toValues
 
-class BuildListViewModel : ViewModel() {
+class BuildListViewModel(appId: String) : ViewModel() {
     val buildListLiveData: LiveData<MutableList<BuildData?>>
 
     init {
-        buildListLiveData = getAppList()
+        buildListLiveData = getAppList(appId)
     }
 
-    private fun getAppList(): LiveData<MutableList<BuildData?>> {
+    private fun getAppList(appId: String): LiveData<MutableList<BuildData?>> {
 
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().reference
-        val buildListLiveData = BuildListLiveData(mDatabase.child("builds"))
+        val buildListLiveData = BuildListLiveData(mDatabase.child("builds").child(appId))
         return Transformations.map(buildListLiveData, Deserializer())
 
     }

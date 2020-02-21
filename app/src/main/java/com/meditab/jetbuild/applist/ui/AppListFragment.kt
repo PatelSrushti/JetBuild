@@ -17,9 +17,6 @@ import kotlinx.android.synthetic.main.app_list_fragment.*
 class AppListFragment : Fragment() {
 
     private lateinit var mContext: Context
-    companion object {
-        fun newInstance() = AppListFragment()
-    }
 
     private lateinit var viewModel: AppListViewModel
 
@@ -37,19 +34,13 @@ class AppListFragment : Fragment() {
     }
 
     private fun initializeView() {
-//        btnGo.setOnClickListener {
-//            findNavController().navigate(R.id.action_appListFragment_to_appDetailsFragment, null)
-//        }
 
         val adapter = AppListAdapter(mContext,
             AppListAdapter.AppListClickListener { appData ->
-                findNavController().navigate(
-                    R.id.action_appListFragment_to_buildListFragment,
-                    Bundle().apply { appData.id })
+                findNavController().navigate(AppListFragmentDirections.actionAppListFragmentToBuildListFragment(appData.id))
             })
         rvApps.adapter = adapter
 
-//        viewModel = ViewModelProviders.of(this).get(AppListViewModel::class.java)
         viewModel = ViewModelProvider(this).get(AppListViewModel::class.java)
 
         viewModel.appListLiveData.observe(viewLifecycleOwner, Observer { list ->
