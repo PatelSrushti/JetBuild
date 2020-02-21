@@ -11,12 +11,19 @@
         android:label="app_list_fragment"
         tools:layout="@layout/app_list_fragment">
         <action
-            android:id="@+id/action_appListFragment_to_appDetailsFragment"
-            app:destination="@id/appDetailsFragment" />
+            android:id="@+id/action_appListFragment_to_buildListFragment"
+            app:destination="@+id/buildListFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
-        android:id="@+id/appDetailsFragment"
+        android:id="@+id/buildListFragment"
         android:name="com.meditab.jetbuild.buildlist.ui.BuildListFragment"
         android:label="app_details_fragment"
-        tools:layout="@layout/app_details_fragment" />
+        tools:layout="@layout/build_list_fragment">
+        <argument
+            android:name="app_id"
+            app:argType="string" />
+    </fragment>
 </navigation>

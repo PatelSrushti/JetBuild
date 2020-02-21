@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.GenericTypeIndicator
 import com.meditab.jetbuild.buildlist.datamodel.BuildData
 import com.meditab.jetbuild.buildlist.repository.BuildListLiveData
+import com.meditab.jetbuild.firebase.toValues
 
 class BuildListViewModel : ViewModel() {
     val buildListLiveData: LiveData<MutableList<BuildData?>>
@@ -37,13 +38,4 @@ class BuildListViewModel : ViewModel() {
 
     }
 
-    private fun <E, V> List<Pair<E, V>>?.toValues(): List<V> {
-
-        val values = ArrayList<V>()
-        this?.forEach { pair ->
-            values.add(pair.second)
-        }
-
-        return values
-    }
 }

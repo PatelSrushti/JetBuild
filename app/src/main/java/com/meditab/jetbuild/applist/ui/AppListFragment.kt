@@ -37,11 +37,16 @@ class AppListFragment : Fragment() {
     }
 
     private fun initializeView() {
-        btnGo.setOnClickListener {
-            findNavController().navigate(R.id.action_appListFragment_to_appDetailsFragment, null)
-        }
+//        btnGo.setOnClickListener {
+//            findNavController().navigate(R.id.action_appListFragment_to_appDetailsFragment, null)
+//        }
 
-        val adapter = AppListAdapter(mContext)
+        val adapter = AppListAdapter(mContext,
+            AppListAdapter.AppListClickListener { appData ->
+                findNavController().navigate(
+                    R.id.action_appListFragment_to_buildListFragment,
+                    Bundle().apply { appData.id })
+            })
         rvApps.adapter = adapter
 
 //        viewModel = ViewModelProviders.of(this).get(AppListViewModel::class.java)

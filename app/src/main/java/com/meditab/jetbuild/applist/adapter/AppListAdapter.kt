@@ -10,17 +10,25 @@ import com.bumptech.glide.Glide
 import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.databinding.AppListItemBinding
 
-class AppListAdapter(val context: Context) :
+class AppListAdapter(
+    val context: Context,
+    private val appListClickListener: AppListClickListener? = null
+) :
     ListAdapter<AppData, AppListAdapter.AppListVH>(diffCallback) {
 
-    inner class AppListVH(val binding: AppListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val tvAppName = binding.tvAppName
-        val ivAppLogo = binding.ivAppLogo
-        val tvDescription = binding.tvDescription
+    inner class AppListVH(private val binding: AppListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(appData: AppData) {
+        fun bind(
+            appData: AppData,
+            appListClickListener: AppListClickListener?
+        ) {
             binding.app = appData
             Glide.with(context).load(appData.icon).into(binding.ivAppLogo)
+
+            itemView.setOnClickListener {
+                appListClickListener?.onClick(appData)
+            }
         }
 
 //        companion object {
@@ -37,7 +45,7 @@ class AppListAdapter(val context: Context) :
         return from(parent)
     }
 
-    fun from(parent: ViewGroup):
+    private fun from(parent: ViewGroup):
             AppListVH {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = AppListItemBinding.inflate(layoutInflater, parent, false)
@@ -45,7 +53,7 @@ class AppListAdapter(val context: Context) :
     }
 
     override fun onBindViewHolder(holder: AppListVH, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), appListClickListener)
     }
 
     companion object {
@@ -60,5 +68,9 @@ class AppListAdapter(val context: Context) :
             }
 
         }
+    }
+
+    class AppListClickListener(val clickListener: (appData: AppData) -> Unit) {
+        fun onClick(appData: AppData) = clickListener(appData)
     }
 }

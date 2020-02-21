@@ -13,7 +13,7 @@ import com.meditab.jetbuild.R
 import com.meditab.jetbuild.buildlist.adapter.BuildListAdapter
 import com.meditab.jetbuild.buildlist.adapter.BuildListListener
 import com.meditab.jetbuild.buildlist.viewmodel.BuildListViewModel
-import kotlinx.android.synthetic.main.app_details_fragment.*
+import kotlinx.android.synthetic.main.build_list_fragment.*
 
 class BuildListFragment : Fragment() {
 
@@ -27,7 +27,7 @@ class BuildListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.app_details_fragment, container, false)
+        return inflater.inflate(R.layout.build_list_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
