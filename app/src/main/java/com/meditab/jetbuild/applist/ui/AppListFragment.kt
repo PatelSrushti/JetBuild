@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.meditab.jetbuild.R
 import com.meditab.jetbuild.applist.adapter.AppListAdapter
 import com.meditab.jetbuild.applist.viewmodel.AppListViewModel
@@ -36,9 +37,9 @@ class AppListFragment : Fragment() {
     }
 
     private fun initializeView() {
-//        btnGo.setOnClickListener {
-//            findNavController().navigate(R.id.action_appListFragment_to_appDetailsFragment, null)
-//        }
+        btnGo.setOnClickListener {
+            findNavController().navigate(R.id.action_appListFragment_to_appDetailsFragment, null)
+        }
 
         val adapter = AppListAdapter(mContext)
         rvApps.adapter = adapter

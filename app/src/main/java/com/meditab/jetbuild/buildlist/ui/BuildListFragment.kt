@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.meditab.jetbuild.R
+import com.meditab.jetbuild.buildlist.adapter.BuildListAdapter
 import com.meditab.jetbuild.buildlist.viewmodel.BuildListViewModel
+import kotlinx.android.synthetic.main.app_details_fragment.*
 
 class BuildListFragment : Fragment() {
 
@@ -26,8 +29,16 @@ class BuildListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(BuildListViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProvider(this).get(BuildListViewModel::class.java)
+
+        val adapter = BuildListAdapter()
+        rvBuilds.adapter = adapter
+
+        viewModel.buildListLiveData.observe(viewLifecycleOwner, Observer {
+//            adapter.addHeaderAndSubmitList(it)
+            adapter.submitList(it)
+        })
+
     }
 
 }
