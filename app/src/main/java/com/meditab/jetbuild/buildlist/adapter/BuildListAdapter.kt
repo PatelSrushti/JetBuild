@@ -11,8 +11,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 
-class BuildListAdapter :
+class BuildListAdapter(private val buildListListener: BuildListListener) :
     ListAdapter<BuildData, BuildListAdapter.BuildListViewHolder>(BuildListDiffCallback()) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
@@ -30,19 +32,25 @@ class BuildListAdapter :
     }
 
     override fun onBindViewHolder(holder: BuildListViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(buildListListener, getItem(position))
     }
 
-    class BuildListViewHolder(private val binding: BuildListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class BuildListViewHolder(private val binding: BuildListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(buildData: BuildData) {
+        fun bind(buildListListener: BuildListListener, buildData: BuildData) {
+
+            val formatter = SimpleDateFormat("M/d/yy, h:MM a")
+            val expiryDate = formatter.format(Date(buildData.expiry_date))
+
             binding.buildNo.text = buildData.build_no.toString()
             binding.buildNotes.text = buildData.notes
-            binding.createdDate.text = buildData.created_date.toString()
-            binding.expiryDate.text = buildData.expiry_date.toString()
-            binding.environment.text = buildData.environment.toString()
-            binding.link.text = buildData.link
+            binding.expiryDate.text = expiryDate
+            binding.environment.text = if (buildData.environment == 0) "Beta" else "Live"
             binding.version.text = buildData.version
+            binding.btnOpen.setOnClickListener {
+                buildListListener.onClick(buildData)
+            }
         }
 
         companion object {
@@ -55,6 +63,10 @@ class BuildListAdapter :
 
     }
 
+}
+
+class BuildListListener(val clickListener: (buildData: BuildData) -> Unit) {
+    fun onClick(buildData: BuildData) = clickListener(buildData)
 }
 
 class BuildListDiffCallback : DiffUtil.ItemCallback<BuildData>() {
