@@ -1,9 +1,7 @@
 package com.meditab.jetbuild.buildlist.datamodel
 
 import com.google.firebase.database.PropertyName
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class BuildData(
     @get:PropertyName("app_id")
     @set:PropertyName("app_id")

@@ -1,7 +1,10 @@
 package com.meditab.jetbuild.applist.datamodel
 
+import android.os.Parcelable
 import com.google.firebase.database.PropertyName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class AppData(
     var id: String = "",
     var name: String = "",
@@ -13,4 +16,4 @@ data class AppData(
     @set:PropertyName("build_version")
     var buildVersion: String = "",
     var link: String = ""
-)
+) : Parcelable
