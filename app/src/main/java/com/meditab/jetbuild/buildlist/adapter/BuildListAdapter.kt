@@ -1,5 +1,6 @@
 package com.meditab.jetbuild.buildlist.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -26,14 +27,22 @@ class BuildListAdapter(private val buildListListener: BuildListListener) :
 
         fun bind(buildListListener: BuildListListener, buildData: BuildData) {
 
-            val formatter = SimpleDateFormat("M/d/yy, h:MM a")
-            val expiryDate = formatter.format(Date(buildData.expiry_date))
+//            val formatter = SimpleDateFormat("M/d/yy, h:MM a")
+            val formatter = SimpleDateFormat("M/d/yy")
+            val expiryDate = "Expires on ${formatter.format(Date(buildData.expiry_date))}"
 
+            val color = when (buildData.app_id) {
+                "app01" -> "#2CADE1"
+                "app02" -> "#F15A24"
+                "app03" -> "#00A7B6"
+                else -> "#000"
+            }
+
+            binding.llBuild.setBackgroundColor(Color.parseColor(color))
             binding.buildNo.text = buildData.build_no.toString()
             binding.buildNotes.text = buildData.notes
             binding.expiryDate.text = expiryDate
-            binding.environment.text = if (buildData.environment == 0) "Beta" else "Live"
-            binding.version.text = buildData.version
+            binding.environment.text = if (buildData.environment == 0) "BETA" else "LIVE"
             binding.btnOpen.setOnClickListener {
                 buildListListener.onClick(buildData)
             }
