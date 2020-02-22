@@ -1,11 +1,14 @@
 package com.meditab.jetbuild.applist.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.databinding.AppListItemBinding
 
@@ -23,10 +26,19 @@ class AppListAdapter(
             appListClickListener: AppListClickListener?
         ) {
             binding.app = appData
-//            Glide.with(context).load(appData.icon).into(binding.ivAppLogo)
+            Glide.with(context).load(appData.icon).into(binding.ivAppLogo)
 
             itemView.setOnClickListener {
                 appListClickListener?.onClick(appData)
+            }
+
+            binding.btnAction.setOnClickListener {
+                context.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(appData.link)
+                    )
+                )
             }
         }
 
