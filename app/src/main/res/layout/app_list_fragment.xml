@@ -6,10 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".applist.ui.AppListFragment">
 
+    <!--    <View-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="80dp"-->
+    <!--        android:background="@color/colorPrimary"/>-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvApps"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/oval_background"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="15"
         tools:listitem="@layout/app_list_item" />

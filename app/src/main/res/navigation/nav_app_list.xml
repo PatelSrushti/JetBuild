@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/buildListFragment"
         android:name="com.meditab.jetbuild.buildlist.ui.BuildListFragment"
-        android:label="app_details_fragment"
+        android:label="build_list_fragment"
         tools:layout="@layout/build_list_fragment">
         <argument
             android:name="app_id"

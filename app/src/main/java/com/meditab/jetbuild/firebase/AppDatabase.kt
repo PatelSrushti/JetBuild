@@ -31,7 +31,7 @@ class AppDatabase {
 
                     val apps = dataSnapshot.getValue(genericTypeIndicator)
                     val list = apps?.toList().toValues()
-                    Log.d(TAG, "App name: ${list}")
+                    list.sortBy { it.id }
                     appListData.value = list
 
                 }
@@ -46,7 +46,7 @@ class AppDatabase {
 }
 
 
-fun <E, V> List<Pair<E, V>>?.toValues(): List<V> {
+fun <E, V> List<Pair<E, V>>?.toValues(): ArrayList<V> {
 
     val values = ArrayList<V>()
     this?.forEach { pair ->

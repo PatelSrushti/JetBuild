@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.databinding.AppListItemBinding
 
@@ -24,21 +23,13 @@ class AppListAdapter(
             appListClickListener: AppListClickListener?
         ) {
             binding.app = appData
-            Glide.with(context).load(appData.icon).into(binding.ivAppLogo)
+//            Glide.with(context).load(appData.icon).into(binding.ivAppLogo)
 
             itemView.setOnClickListener {
                 appListClickListener?.onClick(appData)
             }
         }
 
-//        companion object {
-//            fun from(parent: ViewGroup):
-//                    AppListVH {
-//                val layoutInflater = LayoutInflater.from(parent.context)
-//                val binding = AppListItemBinding.inflate(layoutInflater, parent, false)
-//                return AppListVH(binding)
-//            }
-//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppListVH {
