@@ -5,4 +5,6 @@
     <color name="colorAccent">#DDA508</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="textColorPrimary">#de000000</color>
+    <color name="textColorSecondary">#8e000000</color>
 </resources>

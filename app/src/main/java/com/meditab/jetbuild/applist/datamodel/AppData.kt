@@ -1,9 +1,7 @@
 package com.meditab.jetbuild.applist.datamodel
 
 import com.google.firebase.database.PropertyName
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class AppData(
     var id: String = "",
     var name: String = "",

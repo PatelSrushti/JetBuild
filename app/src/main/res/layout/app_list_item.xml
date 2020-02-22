@@ -12,33 +12,37 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        android:elevation="4dp"
+        android:layout_margin="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:paddingBottom="8dp"
             tools:context=".buildlist.ui.BuildListFragment">
 
             <View
                 android:id="@+id/appBanner"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_height="190dp"
                 android:layout_marginBottom="8dp"
-                android:background="#e5e5e5"
+                android:background="@drawable/no_image"
+                android:elevation="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivAppLogo"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_imsgo"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/appBanner" />
+<!--            <ImageView-->
+<!--                android:id="@+id/ivAppLogo"-->
+<!--                android:layout_width="70dp"-->
+<!--                android:layout_height="70dp"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:src="@drawable/ic_imsgo"-->
+<!--                android:visibility="gone"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/appBanner" />-->
 
             <TextView
                 android:id="@+id/tvAppName"
@@ -46,32 +50,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@{app.name}"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/appBanner"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/appBanner"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/tvBuildVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="@{`Build Version: ` + app.buildVersion}"
-                app:layout_constraintEnd_toStartOf="@+id/imageView"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@{`Latest Build: ` + app.buildVersion}"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/appBanner" />
+                app:layout_constraintTop_toBottomOf="@id/tvAppName" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="24dp"
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
                 android:layout_height="24dp"
-                android:layout_margin="8dp"
-                android:src="@android:drawable/stat_sys_download"
-                android:tint="@color/colorAccent"
+                android:text="Get"
+                android:drawablePadding="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:drawableEnd="@android:drawable/stat_sys_download"
+                android:drawableTint="@color/colorAccent"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvBuildVersion"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/appBanner" />
+                app:layout_constraintTop_toBottomOf="@id/tvAppName" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
