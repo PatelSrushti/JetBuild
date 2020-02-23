@@ -36,7 +36,7 @@ class AppListAdapter(
                 context.startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(appData.link)
+                        Uri.parse(appData.latestBuild?.link)
                     )
                 )
             }
