@@ -11,6 +11,7 @@ import com.google.firebase.database.GenericTypeIndicator
 import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.buildlist.datamodel.BuildData
 import com.meditab.jetbuild.buildlist.repository.BuildListLiveData
+import com.meditab.jetbuild.firebase.AppDatabase
 import com.meditab.jetbuild.firebase.toValues
 
 class BuildListViewModel(appData: AppData) : ViewModel() {
@@ -23,7 +24,8 @@ class BuildListViewModel(appData: AppData) : ViewModel() {
     private fun getAppList(appData: AppData): LiveData<MutableList<BuildData?>> {
 
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().reference
-        val buildListLiveData = BuildListLiveData(mDatabase.child("builds").child(appData.id))
+        val buildListLiveData =
+            BuildListLiveData(mDatabase.child(AppDatabase.FirebaseConstant.BUILDS).child(appData.id))
         return Transformations.map(buildListLiveData, Deserializer())
 
     }
@@ -31,9 +33,10 @@ class BuildListViewModel(appData: AppData) : ViewModel() {
     inner class Deserializer : Function<DataSnapshot, MutableList<BuildData?>> {
 
         override fun apply(dataSnapshot: DataSnapshot): MutableList<BuildData?> {
-            val genericTypeIndicator = object : GenericTypeIndicator<Map<String?, BuildData?>?>() {}
+            val genericTypeIndicator = object : GenericTypeIndicator<Map<String, BuildData>?>() {}
             val apps = dataSnapshot.getValue(genericTypeIndicator)
             val list = apps?.toList().toValues()
+            list.sortByDescending { it.buildNo }
             return list.toMutableList()
         }
 

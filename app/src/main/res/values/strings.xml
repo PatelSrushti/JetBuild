@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">JetBuild</string>
     <string name="title_apps">Apps</string>
+    <string name="title_builds">Builds</string>
+    <string name="build_version">%1$s (%2$s) \u2022 %3$s</string>
 </resources>

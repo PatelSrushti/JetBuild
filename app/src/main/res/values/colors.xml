@@ -10,6 +10,7 @@
     <color name="light_gray">#FFFFFF</color>
     <color name="gray">#99C4C1C1</color>
     <color name="textColorPrimary">#de000000</color>
-    <color name="textColorSecondary">#8e000000</color>
+    <color name="textColorPrimaryLight">#77000000</color>
+    <color name="textColorSecondary">#727272</color>
 
 </resources>

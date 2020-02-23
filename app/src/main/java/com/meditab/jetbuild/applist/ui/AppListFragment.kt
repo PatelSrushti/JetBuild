@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -44,6 +45,8 @@ class AppListFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(AppListViewModel::class.java)
 
         viewModel.appListLiveData.observe(viewLifecycleOwner, Observer { list ->
+            progressBar.visibility = GONE
+            rvApps.visibility = View.VISIBLE
             adapter.submitList(list)
         })
     }

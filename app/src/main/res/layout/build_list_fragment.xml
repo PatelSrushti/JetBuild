@@ -9,18 +9,24 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="110dp"
         android:background="@color/light_gray"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/buildToolbar"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            app:title="Builds"
-            app:titleTextAppearance="@style/toolbarTitle"
-            app:titleTextColor="@color/black" />
+            android:layout_height="match_parent"
+            app:expandedTitleGravity="top"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/appToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/title_builds"
+                app:titleTextAppearance="@style/toolbarTitle"
+                app:titleTextColor="@color/black" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.buildlist.datamodel.BuildData
 import com.meditab.jetbuild.databinding.BuildListItemBinding
-import java.text.SimpleDateFormat
-import java.util.*
+import java.util.concurrent.TimeUnit
 
 class BuildListAdapter(
     private val buildListListener: BuildListListener,
@@ -35,15 +34,15 @@ class BuildListAdapter(
             appData: AppData
         ) {
 
-//            val formatter = SimpleDateFormat("M/d/yy, h:MM a")
-            val formatter = SimpleDateFormat("M/d/yy")
-            val expiryDate = "Expires on ${formatter.format(Date(buildData.expiryDate))}"
-
             binding.llBuild.setBackgroundColor(Color.parseColor(appData.primaryColor))
             binding.buildNo.text = buildData.buildNo.toString()
             binding.buildNotes.text = buildData.notes
-            binding.expiryDate.text = expiryDate
-            binding.environment.text = if (buildData.environment == 0) "BETA" else "LIVE"
+            val diff = TimeUnit.DAYS.convert(
+                buildData.expiryDate - System.currentTimeMillis(),
+                TimeUnit.MILLISECONDS
+            )
+            binding.expiryDate.text = "$diff Days"
+            binding.environment.text = buildData.getEnvironmentValue()
             binding.btnOpen.setOnClickListener {
                 buildListListener.onClick(buildData)
             }
