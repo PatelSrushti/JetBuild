@@ -11,7 +11,7 @@ data class AppData(
     var icon: String? = null,
     @set:PropertyName("primary_color")
     @get:PropertyName("primary_color")
-    var primaryColor: String = "",
+    var primaryColor: String = "#000",
     @get:PropertyName("build_version")
     @set:PropertyName("build_version")
     var buildVersion: String = "",

@@ -37,7 +37,7 @@ class AppListFragment : Fragment() {
 
         val adapter = AppListAdapter(mContext,
             AppListAdapter.AppListClickListener { appData ->
-                findNavController().navigate(AppListFragmentDirections.actionAppListFragmentToBuildListFragment(appData.id))
+                findNavController().navigate(AppListFragmentDirections.actionAppListFragmentToBuildListFragment(appData))
             })
         rvApps.adapter = adapter
 

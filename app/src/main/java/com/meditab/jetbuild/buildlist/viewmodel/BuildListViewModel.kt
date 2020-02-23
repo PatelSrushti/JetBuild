@@ -8,21 +8,22 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.GenericTypeIndicator
+import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.buildlist.datamodel.BuildData
 import com.meditab.jetbuild.buildlist.repository.BuildListLiveData
 import com.meditab.jetbuild.firebase.toValues
 
-class BuildListViewModel(appId: String) : ViewModel() {
+class BuildListViewModel(appData: AppData) : ViewModel() {
     val buildListLiveData: LiveData<MutableList<BuildData?>>
 
     init {
-        buildListLiveData = getAppList(appId)
+        buildListLiveData = getAppList(appData)
     }
 
-    private fun getAppList(appId: String): LiveData<MutableList<BuildData?>> {
+    private fun getAppList(appData: AppData): LiveData<MutableList<BuildData?>> {
 
         val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().reference
-        val buildListLiveData = BuildListLiveData(mDatabase.child("builds").child(appId))
+        val buildListLiveData = BuildListLiveData(mDatabase.child("builds").child(appData.id))
         return Transformations.map(buildListLiveData, Deserializer())
 
     }

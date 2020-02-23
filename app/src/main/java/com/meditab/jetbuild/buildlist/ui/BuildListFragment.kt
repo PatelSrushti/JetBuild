@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.meditab.jetbuild.R
+import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.buildlist.adapter.BuildListAdapter
 import com.meditab.jetbuild.buildlist.adapter.BuildListListener
 import com.meditab.jetbuild.buildlist.utils.BuildListViewModelFactory
@@ -21,7 +22,7 @@ class BuildListFragment : Fragment() {
 
     private lateinit var viewModel: BuildListViewModel
     private var buildListFragmentArgs: BuildListFragmentArgs? = null
-    private lateinit var appId: String
+    private lateinit var appData: AppData
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +37,9 @@ class BuildListFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = "Builds"
 
         buildListFragmentArgs = arguments?.let { BuildListFragmentArgs.fromBundle(it) }
-        appId = buildListFragmentArgs?.appId ?: ""
+        appData = buildListFragmentArgs?.appData ?: AppData()
 
-        val viewModelFactory = BuildListViewModelFactory(appId)
+        val viewModelFactory = BuildListViewModelFactory(appData)
         viewModel = ViewModelProvider(this, viewModelFactory).get(BuildListViewModel::class.java)
 
         val adapter = BuildListAdapter(BuildListListener {
@@ -50,7 +51,7 @@ class BuildListFragment : Fragment() {
                 )
             )
 
-        })
+        }, appData)
         rvBuilds.adapter = adapter
 
         viewModel.buildListLiveData.observe(viewLifecycleOwner, Observer {

@@ -2,13 +2,14 @@ package com.meditab.jetbuild.buildlist.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.buildlist.viewmodel.BuildListViewModel
 
-class BuildListViewModelFactory(private val appId: String) : ViewModelProvider.Factory {
+class BuildListViewModelFactory(private val appData: AppData) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(BuildListViewModel::class.java)) {
-            return BuildListViewModel(appId) as T
+            return BuildListViewModel(appData) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

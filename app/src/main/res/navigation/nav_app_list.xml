@@ -23,7 +23,7 @@
         android:label="build_list_fragment"
         tools:layout="@layout/build_list_fragment">
         <argument
-            android:name="app_id"
-            app:argType="string" />
+            android:name="app_data"
+            app:argType="com.meditab.jetbuild.applist.datamodel.AppData" />
     </fragment>
 </navigation>

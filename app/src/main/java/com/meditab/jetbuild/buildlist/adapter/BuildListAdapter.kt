@@ -6,12 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.buildlist.datamodel.BuildData
 import com.meditab.jetbuild.databinding.BuildListItemBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BuildListAdapter(private val buildListListener: BuildListListener) :
+class BuildListAdapter(
+    private val buildListListener: BuildListListener,
+    private val appData: AppData
+) :
     ListAdapter<BuildData, BuildListAdapter.BuildListViewHolder>(BuildListDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildListViewHolder {
@@ -19,26 +23,23 @@ class BuildListAdapter(private val buildListListener: BuildListListener) :
     }
 
     override fun onBindViewHolder(holder: BuildListViewHolder, position: Int) {
-        holder.bind(buildListListener, getItem(position))
+        holder.bind(buildListListener, getItem(position), appData)
     }
 
     class BuildListViewHolder(private val binding: BuildListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(buildListListener: BuildListListener, buildData: BuildData) {
+        fun bind(
+            buildListListener: BuildListListener,
+            buildData: BuildData,
+            appData: AppData
+        ) {
 
 //            val formatter = SimpleDateFormat("M/d/yy, h:MM a")
             val formatter = SimpleDateFormat("M/d/yy")
             val expiryDate = "Expires on ${formatter.format(Date(buildData.expiryDate))}"
 
-            val color = when (buildData.appId) {
-                "app01" -> "#2CADE1"
-                "app02" -> "#F15A24"
-                "app03" -> "#00A7B6"
-                else -> "#000"
-            }
-
-            binding.llBuild.setBackgroundColor(Color.parseColor(color))
+            binding.llBuild.setBackgroundColor(Color.parseColor(appData.primaryColor))
             binding.buildNo.text = buildData.buildNo.toString()
             binding.buildNotes.text = buildData.notes
             binding.expiryDate.text = expiryDate
