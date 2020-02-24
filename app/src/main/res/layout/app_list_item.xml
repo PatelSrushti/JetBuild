@@ -30,7 +30,6 @@
                 android:elevation="4dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_imsgo"
-                android:translationZ="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/appBanner"
                 app:layout_constraintEnd_toEndOf="@+id/appBanner"
                 app:layout_constraintStart_toStartOf="@+id/appBanner"
@@ -39,14 +38,23 @@
             <View
                 android:id="@+id/appBanner"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="170dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/gray"
+                android:background="@drawable/app_banner"
                 android:elevation="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/transparent_black"
+                android:elevation="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
