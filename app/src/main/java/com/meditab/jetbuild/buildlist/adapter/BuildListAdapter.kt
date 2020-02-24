@@ -37,6 +37,7 @@ class BuildListAdapter(
             binding.llBuild.setBackgroundColor(Color.parseColor(appData.primaryColor))
             binding.buildNo.text = buildData.buildNo.toString()
             binding.buildNotes.text = buildData.notes
+            binding.versionNo.text = buildData.version
             val diff = TimeUnit.DAYS.convert(
                 buildData.expiryDate - System.currentTimeMillis(),
                 TimeUnit.MILLISECONDS
