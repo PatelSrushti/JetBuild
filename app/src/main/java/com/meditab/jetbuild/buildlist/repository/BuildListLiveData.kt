@@ -1,13 +1,10 @@
 package com.meditab.jetbuild.buildlist.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.meditab.jetbuild.AppUtils
 import com.meditab.jetbuild.buildlist.datamodel.BuildData
-import com.meditab.jetbuild.firebase.Deserializer
+import com.meditab.jetbuild.firebase.toValues
 
 class BuildListLiveData(private val reference: DatabaseReference) :
     MutableLiveData<List<BuildData>>() {
@@ -25,26 +22,30 @@ class BuildListLiveData(private val reference: DatabaseReference) :
     inner class MyValueEventListener : ValueEventListener {
 
         override fun onDataChange(dataSnapshot: DataSnapshot) {
-            dataSnapshot.let { snapshot ->
 
-                val list = Deserializer<BuildData>().apply(dataSnapshot)
-//                val list = snapshot.deserialize<BuildData>()
-                list.sortByDescending { buildData -> buildData.buildNo }
+//                val list = Deserializer<BuildData>().apply(dataSnapshot)
+            val list = dataSnapshot.deserialize() as ArrayList<BuildData>
+            list.sortByDescending { buildData -> buildData.buildNo }
 
-                list.forEach {
+            list.forEach {
 
-                    if (AppUtils.getTimeDiff(it.expiryDate) == 0) {
-                        reference.child(it.id).removeValue()
-                    }
-
+                if (AppUtils.getTimeDiff(it.expiryDate) == 0) {
+                    reference.child(it.id).removeValue()
                 }
-                value = list
+
             }
+            value = list
         }
 
         override fun onCancelled(databaseError: DatabaseError) {
 
         }
+    }
+
+    fun DataSnapshot.deserialize(): ArrayList<BuildData> {
+        val genericTypeIndicator = object : GenericTypeIndicator<Map<String, BuildData>?>() {}
+        val apps = this.getValue(genericTypeIndicator)
+        return apps?.toList().toValues()
     }
 
 }
