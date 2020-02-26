@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.meditab.jetbuild.AppUtils
 import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.buildlist.datamodel.BuildData
 import com.meditab.jetbuild.databinding.BuildListItemBinding
-import java.util.concurrent.TimeUnit
 
 class BuildListAdapter(
     private val buildListListener: BuildListListener,
@@ -35,13 +35,10 @@ class BuildListAdapter(
         ) {
 
             binding.llBuild.setBackgroundColor(Color.parseColor(appData.primaryColor))
-            binding.buildNo.text = buildData.buildNo.toString()
+            binding.buildNo.text = "#${buildData.buildNo}"
             binding.buildNotes.text = buildData.notes
             binding.versionNo.text = buildData.version
-            val diff = TimeUnit.DAYS.convert(
-                buildData.expiryDate - System.currentTimeMillis(),
-                TimeUnit.MILLISECONDS
-            )
+            val diff = AppUtils.getTimeDiff(buildData.expiryDate)
             binding.expiryDate.text = "$diff Days"
             binding.environment.text = buildData.getEnvironmentValue()
             binding.btnOpen.setOnClickListener {

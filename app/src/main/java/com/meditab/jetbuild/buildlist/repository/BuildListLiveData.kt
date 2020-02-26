@@ -1,14 +1,16 @@
 package com.meditab.jetbuild.buildlist.repository
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.meditab.jetbuild.AppUtils
 import com.meditab.jetbuild.buildlist.datamodel.BuildData
-import com.meditab.jetbuild.firebase.toValues
-import java.util.concurrent.TimeUnit
+import com.meditab.jetbuild.firebase.Deserializer
 
 class BuildListLiveData(private val reference: DatabaseReference) :
-    MutableLiveData<DataSnapshot>() {
+    MutableLiveData<List<BuildData>>() {
 
     private val listener = MyValueEventListener()
 
@@ -23,37 +25,26 @@ class BuildListLiveData(private val reference: DatabaseReference) :
     inner class MyValueEventListener : ValueEventListener {
 
         override fun onDataChange(dataSnapshot: DataSnapshot) {
+            dataSnapshot.let { snapshot ->
 
-            dataSnapshot.let {
-                val genericTypeIndicator =
-                    object :
-                        GenericTypeIndicator<Map<String, BuildData>?>() {}
-
-                val apps = dataSnapshot.getValue(genericTypeIndicator)
-                val list = apps?.toList().toValues()
+                val list = Deserializer<BuildData>().apply(dataSnapshot)
+//                val list = snapshot.deserialize<BuildData>()
+                list.sortByDescending { buildData -> buildData.buildNo }
 
                 list.forEach {
 
-                    val diff = TimeUnit.DAYS.convert(
-                        it.expiryDate - System.currentTimeMillis(),
-                        TimeUnit.MILLISECONDS
-                    )
-
-                    if (diff.toInt() == 0) {
+                    if (AppUtils.getTimeDiff(it.expiryDate) == 0) {
                         reference.child(it.id).removeValue()
                     }
 
                 }
-
+                value = list
             }
-
-            value = dataSnapshot
         }
 
         override fun onCancelled(databaseError: DatabaseError) {
 
         }
-
     }
 
 }
