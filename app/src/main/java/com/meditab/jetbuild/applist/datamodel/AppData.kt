@@ -15,5 +15,8 @@ data class AppData(
     var primaryColor: String = "#000",
     @get:PropertyName("latest_build")
     @set:PropertyName("latest_build")
-    var latestBuild: BuildData? = null
+    var latestBuild: BuildData? = null,
+    @get:PropertyName("package_name")
+    @set:PropertyName("package_name")
+    var packageName: String = ""
 ) : Parcelable
