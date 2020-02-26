@@ -1,6 +1,7 @@
 package com.meditab.jetbuild.firebase
 
 import android.util.Log
+import androidx.arch.core.util.Function
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.*
@@ -54,4 +55,20 @@ fun <E, V> List<Pair<E, V>>?.toValues(): ArrayList<V> {
     }
 
     return values
+}
+
+fun <T> DataSnapshot.deserialize(): ArrayList<T> {
+    val genericTypeIndicator = object : GenericTypeIndicator<Map<String, T>?>() {}
+    val apps = getValue(genericTypeIndicator)
+    return apps?.toList().toValues()
+}
+
+class Deserializer<T> : Function<DataSnapshot, List<T>> {
+
+    override fun apply(dataSnapshot: DataSnapshot): ArrayList<T> {
+        val genericTypeIndicator = object : GenericTypeIndicator<Map<String, T>?>() {}
+        val apps = dataSnapshot.getValue(genericTypeIndicator)
+        return apps?.toList().toValues()
+    }
+
 }

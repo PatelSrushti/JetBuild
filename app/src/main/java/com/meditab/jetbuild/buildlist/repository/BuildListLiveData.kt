@@ -1,14 +1,13 @@
 package com.meditab.jetbuild.buildlist.repository
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.*
+import com.meditab.jetbuild.AppUtils
 import com.meditab.jetbuild.buildlist.datamodel.BuildData
 import com.meditab.jetbuild.firebase.toValues
-import java.util.concurrent.TimeUnit
 
 class BuildListLiveData(private val reference: DatabaseReference) :
-    MutableLiveData<DataSnapshot>() {
+    MutableLiveData<List<BuildData>>() {
 
     private val listener = MyValueEventListener()
 
@@ -24,36 +23,29 @@ class BuildListLiveData(private val reference: DatabaseReference) :
 
         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-            dataSnapshot.let {
-                val genericTypeIndicator =
-                    object :
-                        GenericTypeIndicator<Map<String, BuildData>?>() {}
+//                val list = Deserializer<BuildData>().apply(dataSnapshot)
+            val list = dataSnapshot.deserialize() as ArrayList<BuildData>
+            list.sortByDescending { buildData -> buildData.buildNo }
 
-                val apps = dataSnapshot.getValue(genericTypeIndicator)
-                val list = apps?.toList().toValues()
+            list.forEach {
 
-                list.forEach {
-
-                    val diff = TimeUnit.DAYS.convert(
-                        it.expiryDate - System.currentTimeMillis(),
-                        TimeUnit.MILLISECONDS
-                    )
-
-                    if (diff.toInt() == 0) {
-                        reference.child(it.id).removeValue()
-                    }
-
+                if (AppUtils.getTimeDiff(it.expiryDate) == 0) {
+                    reference.child(it.id).removeValue()
                 }
 
             }
-
-            value = dataSnapshot
+            value = list
         }
 
         override fun onCancelled(databaseError: DatabaseError) {
 
         }
+    }
 
+    fun DataSnapshot.deserialize(): ArrayList<BuildData> {
+        val genericTypeIndicator = object : GenericTypeIndicator<Map<String, BuildData>?>() {}
+        val apps = this.getValue(genericTypeIndicator)
+        return apps?.toList().toValues()
     }
 
 }
