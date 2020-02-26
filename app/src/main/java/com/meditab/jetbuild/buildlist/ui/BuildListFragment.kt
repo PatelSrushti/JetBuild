@@ -1,12 +1,9 @@
 package com.meditab.jetbuild.buildlist.ui
 
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.meditab.jetbuild.AppUtils
 import com.meditab.jetbuild.applist.datamodel.AppData
 import com.meditab.jetbuild.buildlist.adapter.BuildListAdapter
 import com.meditab.jetbuild.buildlist.adapter.BuildListListener
@@ -51,26 +49,10 @@ class BuildListFragment : Fragment() {
         val adapter = context?.let {
             BuildListAdapter(it, BuildListListener { buildData ->
 
-                var packageInfo: PackageInfo? = null
+                val launchIntent = it.packageManager.getLaunchIntentForPackage(appData.packageName)
 
-                try {
-                    packageInfo = it.packageManager.getPackageInfo(appData.packageName, 0)
-                } catch (e: PackageManager.NameNotFoundException) {
-                    e.printStackTrace()
-                }
-
-                if (packageInfo != null) {
-                    val launchIntent =
-                        it.packageManager.getLaunchIntentForPackage(packageInfo.packageName)
-
-                    val versionCode =
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo.longVersionCode.toInt() else packageInfo.versionCode
-
-                    if (versionCode == buildData.buildNo) {
-                        startActivity(launchIntent)
-                    } else {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(buildData.link)))
-                    }
+                if (launchIntent != null && AppUtils.getPackageVersionCode(it, appData.packageName) == buildData.buildNo) {
+                    startActivity(launchIntent)
                 } else {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(buildData.link)))
                 }

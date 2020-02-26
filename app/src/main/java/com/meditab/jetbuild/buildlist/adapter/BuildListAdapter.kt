@@ -1,9 +1,7 @@
 package com.meditab.jetbuild.buildlist.adapter
 
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Color
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -42,7 +40,7 @@ class BuildListAdapter(
         ) {
 
             binding.llBuild.setBackgroundColor(Color.parseColor(appData.primaryColor))
-            binding.buildNo.text = "#${buildData.buildNo}"
+            binding.buildNo.text = "${buildData.buildNo}"
             binding.buildNotes.text = buildData.notes
             binding.versionNo.text = buildData.version
             val diff = AppUtils.getTimeDiff(buildData.expiryDate)
@@ -52,16 +50,7 @@ class BuildListAdapter(
                 buildListListener.onClick(buildData)
             }
 
-            try {
-
-                val packageInfo = context.packageManager?.getPackageInfo(appData.packageName, 0)
-                val versionCode =
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo?.longVersionCode?.toInt() else packageInfo?.versionCode
-                binding.btnOpen.text = if (versionCode == buildData.buildNo) "Open" else "Get"
-
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-            }
+            binding.btnOpen.text = if (AppUtils.getPackageVersionCode(context, appData.packageName) == buildData.buildNo) "Open" else "Get"
 
         }
 

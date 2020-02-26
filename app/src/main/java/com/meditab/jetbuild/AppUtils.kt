@@ -1,5 +1,8 @@
 package com.meditab.jetbuild
 
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import java.util.concurrent.TimeUnit
 
 object AppUtils {
@@ -10,4 +13,15 @@ object AppUtils {
         ).toInt()
                 )
     }
+
+    fun getPackageVersionCode(context: Context, packageName: String): Int? {
+        return try {
+            val packageInfo = context.packageManager?.getPackageInfo(packageName, 0)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo?.longVersionCode?.toInt() else packageInfo?.versionCode
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            0
+        }
+    }
+
 }
