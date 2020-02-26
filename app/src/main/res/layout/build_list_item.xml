@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="app"
+            type="com.meditab.jetbuild.applist.datamodel.AppData" />
+
+        <variable
             name="build"
             type="com.meditab.jetbuild.buildlist.datamodel.BuildData" />
 
@@ -26,19 +30,19 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/llBuild"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:orientation="vertical"
+                app:build_card_color="@{app.primaryColor}"
                 tools:background="@color/black">
 
                 <TextView
-                    android:id="@+id/buildNo"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:text="@{String.valueOf(build.buildNo)}"
                     android:textColor="#FFF"
                     tools:text="101" />
 
@@ -50,12 +54,12 @@
                     android:background="#FFF" />
 
                 <TextView
-                    android:id="@+id/environment"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textColor="#FFF"
+                    app:build_environment="@{build.environment}"
                     tools:text="LIVE" />
 
             </LinearLayout>
@@ -68,7 +72,6 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/buildNotes"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -76,17 +79,18 @@
                     android:fontFamily="@font/roboto"
                     android:gravity="center_vertical"
                     android:maxLines="2"
+                    android:text="@{build.notes}"
                     android:textColor="@color/textColorPrimary"
                     android:textSize="14sp"
                     tools:text="Bug Fixes" />
 
                 <TextView
-                    android:id="@+id/versionNo"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto"
                     android:gravity="center_vertical"
+                    android:text="@{build.version}"
                     android:textColor="@color/textColorSecondary"
                     android:textSize="13sp"
                     tools:text="21.1.0" />
@@ -104,11 +108,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Get"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="Get" />
 
                 <TextView
-                    android:id="@+id/expiryDate"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -118,6 +121,7 @@
                     android:padding="8dp"
                     android:textColor="@color/textColorSecondary"
                     android:textSize="12sp"
+                    app:build_expiry_date="@{build.expiryDate}"
                     tools:text="50 Days" />
 
             </LinearLayout>

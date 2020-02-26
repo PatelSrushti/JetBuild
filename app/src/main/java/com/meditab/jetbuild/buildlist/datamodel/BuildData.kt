@@ -23,6 +23,4 @@ data class BuildData(
     var link: String = "",
     var notes: String = "",
     var version: String = ""
-) : Parcelable {
-    fun getEnvironmentValue() = if (environment == 1) "LIVE" else "BETA"
-}
+) : Parcelable

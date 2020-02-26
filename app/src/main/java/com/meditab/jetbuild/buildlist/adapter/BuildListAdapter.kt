@@ -1,7 +1,6 @@
 package com.meditab.jetbuild.buildlist.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -39,19 +38,16 @@ class BuildListAdapter(
             appData: AppData
         ) {
 
-            binding.llBuild.setBackgroundColor(Color.parseColor(appData.primaryColor))
-            binding.buildNo.text = "${buildData.buildNo}"
-            binding.buildNotes.text = buildData.notes
-            binding.versionNo.text = buildData.version
-            val diff = AppUtils.getTimeDiff(buildData.expiryDate)
-            binding.expiryDate.text = "$diff Days"
-            binding.environment.text = buildData.getEnvironmentValue()
+            binding.app = appData
+            binding.build = buildData
             binding.btnOpen.setOnClickListener {
                 buildListListener.onClick(buildData)
             }
-
-            binding.btnOpen.text = if (AppUtils.getPackageVersionCode(context, appData.packageName) == buildData.buildNo) "Open" else "Get"
-
+            binding.btnOpen.text = if (AppUtils.getPackageVersionCode(
+                    context,
+                    appData.packageName
+                ) == buildData.buildNo
+            ) "Open" else "Get"
         }
 
         companion object {

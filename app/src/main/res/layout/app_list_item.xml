@@ -80,7 +80,7 @@
                     android:id="@+id/tvBuildVersion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{@string/build_version( app.latestBuild.version, app.latestBuild.buildNo, app.latestBuild.getEnvironmentValue())}"
+                    android:text="@{@string/build_version( app.latestBuild.version, app.latestBuild.buildNo, ``)}"
                     android:textColor="@color/textColorPrimaryLight"
                     android:textSize="13sp"
                     app:layout_constraintStart_toStartOf="@id/tvAppName"
