@@ -24,7 +24,7 @@ class BuildListLiveData(private val reference: DatabaseReference) :
         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
 //                val list = Deserializer<BuildData>().apply(dataSnapshot)
-            val list = dataSnapshot.deserialize() as ArrayList<BuildData>
+            val list: ArrayList<BuildData> = dataSnapshot.deserialize()
             list.sortByDescending { buildData -> buildData.buildNo }
 
             list.forEach {

@@ -14,6 +14,14 @@ object AppUtils {
                 )
     }
 
+    fun getOpenBuildText(context: Context, packageName: String, buildNo: Int): String {
+        return if (getPackageVersionCode(context, packageName) == buildNo) {
+            context.getString(R.string.txt_open)
+        } else {
+            context.getString(R.string.txt_get)
+        }
+    }
+
     fun getPackageVersionCode(context: Context, packageName: String): Int? {
         return try {
             val packageInfo = context.packageManager?.getPackageInfo(packageName, 0)

@@ -43,11 +43,11 @@ class BuildListAdapter(
             binding.btnOpen.setOnClickListener {
                 buildListListener.onClick(buildData)
             }
-            binding.btnOpen.text = if (AppUtils.getPackageVersionCode(
-                    context,
-                    appData.packageName
-                ) == buildData.buildNo
-            ) "Open" else "Get"
+            binding.btnOpen.text = AppUtils.getOpenBuildText(
+                context,
+                appData.packageName,
+                buildData.buildNo
+            )
         }
 
         companion object {

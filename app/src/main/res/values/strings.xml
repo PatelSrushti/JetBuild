@@ -3,4 +3,6 @@
     <string name="title_apps">Apps</string>
     <string name="title_builds">Builds</string>
     <string name="build_version">%1$s (%2$s) \u2022 %3$s</string>
+    <string name="txt_open">OPEN</string>
+    <string name="txt_get">GET</string>
 </resources>
